@@ -3,6 +3,6 @@ version: "3.5"
 
 services:
   hbase-server:
-    image: "dajobe/hbase"
+    image: harisekhon/hbase
     volumes:
       - ./seed:/seed
