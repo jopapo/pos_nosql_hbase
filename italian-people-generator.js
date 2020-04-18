@@ -198,13 +198,8 @@ function split_model_as_columns(entity, model, id) {
     for (var key in model) {
         var val = model[key];
         family = get_column_family(key)
-        if (val instanceof Date || val instanceof Number) {
-            val = val.toJSON()
-        }
-        if (typeof(val) == 'string') {
-            val = quote_and_comma([val])
-        }
-        console.log('put', quote_and_comma([entity, id, family + ':' + key]) + ',', JSON.stringify(val))
+        var str_val = JSON.stringify(val).replace(/":(["\d])/g, '"=>$1')
+        console.log('put', quote_and_comma([entity, id, family + ':' + key]) + ',', str_val)
     }
 }
 

@@ -2,14 +2,17 @@
 
 1. ativar o ambiente
 ```
-# docker-compose up hbase-server
+$ docker-compose up hbase-server
 ```
-
 use a flag -d se quiser que rode em segundo plano.
 
 2. abrir a console para consultas ao hbase
 ```
-# docker exec -it pos_nosql_hbase_hbase-server_1 hbase shell
+$ docker-compose run hbase-server
+```
+ou:
+```
+$ docker-compose exec hbase-server hbase shell
 ```
 
 ## Exercício 1
@@ -24,11 +27,12 @@ Took 0.8425 seconds
 => Hbase::Table - italians
 ```
 
-2. Importe o arquivo via linha de comando 
+2. Importe o arquivo via linha de comando: 
 ```
-# hbase shell /seed/italians.txt
+$ docker-compose exec hbase-server hbase shell /seed/italians.txt
 Took 0.0205 seconds
 ```
+
 
 
 ## Exercício 2
@@ -156,12 +160,20 @@ Took 0.0232 seconds
 
 ## Exercício 3
 
-Alterado o script de geração de dados automático [italian-people-generator.js](italian-people-generator.js) pra gerar uma saída padrão pro HBase. Ao executar conforme exemplo abaixo, ele gera um volume de dados [seed/italians-generated-data.js](seed/italians-generated-data.js).
+Alterado o script de geração de dados automático [italian-people-generator.js](italian-people-generator.js) pra gerar uma saída padrão pro HBase. Ao executar conforme exemplo abaixo, ele gera um volume de dados [seed/italians-generated-data.txt](seed/italians-generated-data.txt).
 ```
 $ node italian-people-generator.js > seed/italians-generated-data.txt
 ```
- 
-Utilizando o MapReduce, faça um relatório ou mais de um indicando as seguintes informações: 
+
+Importado o arquivo via:
+```
+$ docker-compose exec hbase-server hbase shell /seed/italians-generated-data.txt
+```
+
+PS: A parte abaixo não foi possível fazer por causa de dificuldades em executar o MapReduce com todas as questões de compatibilidade do HBase. Segundo o professor, essa parte é opcional e então foi deixada de fora.
+
+* Utilizando o MapReduce, faça um relatório ou mais de um indicando as seguintes informações: 
+
 1. Quantidade de gatos e cachorros na amostra 
 2. Média de gatos e cachorros na população 
 3. Quantidade de pais e mães  
